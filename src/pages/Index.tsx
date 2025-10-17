@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Eye } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const [currentFace, setCurrentFace] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -84,12 +85,51 @@ const Index = () => {
             transition={{ delay: 0.6 }}
             className="text-center mt-16"
           >
-            <Link to="/booking">
-              <Button size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-lg px-8 py-6">
-                Book Your Session
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </Link>
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-lg px-8 py-6 relative overflow-visible"
+              onClick={(e) => {
+                e.preventDefault();
+                const button = e.currentTarget as HTMLButtonElement;
+                const rect = button.getBoundingClientRect();
+                const originX = rect.left + rect.width / 2;
+                const originY = rect.top + rect.height / 2;
+                const particles: HTMLDivElement[] = [];
+                const count = 18;
+                for (let i = 0; i < count; i++) {
+                  const p = document.createElement("div");
+                  const angle = (i / count) * Math.PI * 2;
+                  const distance = 20 + Math.random() * 30;
+                  const x = Math.cos(angle) * distance;
+                  const y = Math.sin(angle) * distance;
+                  p.style.position = "fixed";
+                  p.style.left = `${originX}px`;
+                  p.style.top = `${originY}px`;
+                  p.style.width = "6px";
+                  p.style.height = "6px";
+                  p.style.borderRadius = "50%";
+                  p.style.pointerEvents = "none";
+                  p.style.zIndex = "9999";
+                  p.style.background = "conic-gradient(from 0deg, var(--primary), var(--secondary))";
+                  document.body.appendChild(p);
+                  particles.push(p);
+                  const keyframes: Keyframe[] = [
+                    { transform: "translate(0, 0) scale(1)", opacity: 1 },
+                    { transform: `translate(${x}px, ${y}px) scale(0)`, opacity: 0 },
+                  ];
+                  const duration = 500 + Math.random() * 250;
+                  p.animate(keyframes, {
+                    duration,
+                    easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+                    fill: "forwards",
+                  }).onfinish = () => p.remove();
+                }
+                setTimeout(() => navigate("/booking"), 550);
+              }}
+            >
+              Book Your Session
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
           </motion.div>
         </div>
       </section>
@@ -144,6 +184,7 @@ const Index = () => {
               {portfolioItems.map((item, idx) => {
                 const images = item.images && item.images.length > 0 ? item.images : (item.image_url ? [item.image_url] : []);
                 const displayImage = images[0];
+                const hasVideo = !!item.video_url;
                 
                 return (
                   <motion.div
@@ -155,13 +196,17 @@ const Index = () => {
                     whileHover={{ y: -8 }}
                     className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer"
                   >
-                    {displayImage && (
+                    {hasVideo ? (
+                      <div className="w-full h-full bg-black flex items-center justify-center">
+                        <div className="text-white text-sm">Video</div>
+                      </div>
+                    ) : displayImage ? (
                       <img
                         src={displayImage}
                         alt={item.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                    )}
+                    ) : null}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="absolute bottom-0 left-0 right-0 p-6">
                         <h3 className="text-white font-bold text-xl mb-2">{item.title}</h3>

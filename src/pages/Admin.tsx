@@ -22,6 +22,7 @@ const Admin = () => {
     category: "",
     description: "",
     image_url: "",
+    video_url: "",
   });
   const [uploadingFile, setUploadingFile] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -101,6 +102,7 @@ const Admin = () => {
           description: data.description || null,
           image_url: data.images[0] || data.image_url || null,
           images: data.images.length > 0 ? data.images : (data.image_url ? [data.image_url] : []),
+          video_url: data.video_url || null,
         }]);
       
       if (error) throw error;
@@ -108,7 +110,7 @@ const Admin = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-portfolio"] });
       toast.success("Portfolio item added successfully!");
-      setUploadData({ title: "", category: "", description: "", image_url: "" });
+      setUploadData({ title: "", category: "", description: "", image_url: "", video_url: "" });
     },
     onError: (error) => {
       console.error("Error uploading:", error);
@@ -152,8 +154,8 @@ const Admin = () => {
     }
 
     // Check if either files are selected or a URL is provided
-    if (selectedFiles.length === 0 && !uploadData.image_url) {
-      toast.error("Please either upload images or provide an image URL");
+    if (selectedFiles.length === 0 && !uploadData.image_url && !uploadData.video_url) {
+      toast.error("Please upload images, provide an image URL, or a video URL");
       return;
     }
 
@@ -289,6 +291,12 @@ const Admin = () => {
                     setSelectedFiles([]);
                   }}
                   disabled={selectedFiles.length > 0}
+                />
+
+                <Input
+                  placeholder="Video URL (YouTube/Vimeo link or direct .mp4)"
+                  value={uploadData.video_url}
+                  onChange={(e) => setUploadData({ ...uploadData, video_url: e.target.value })}
                 />
 
                 <Button 

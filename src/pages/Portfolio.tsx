@@ -90,6 +90,7 @@ const Portfolio = () => {
                 {filteredItems.map((item, idx) => {
                   const images = item.images && item.images.length > 0 ? item.images : (item.image_url ? [item.image_url] : []);
                   const displayImage = images[0];
+                  const hasVideo = !!item.video_url;
                   
                   return (
                     <motion.div
@@ -103,13 +104,17 @@ const Portfolio = () => {
                       className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer"
                       onClick={() => setSelectedItem(item)}
                     >
-                      {displayImage && (
+                      {hasVideo ? (
+                        <div className="w-full h-full bg-black flex items-center justify-center">
+                          <div className="text-white text-sm">Play Video</div>
+                        </div>
+                      ) : displayImage ? (
                         <img
                           src={displayImage}
                           alt={item.title}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
-                      )}
+                      ) : null}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-0 left-0 right-0 p-6">
                           <h3 className="text-white font-bold text-xl mb-2">{item.title}</h3>
@@ -143,6 +148,7 @@ const Portfolio = () => {
             const images = selectedItem.images && selectedItem.images.length > 0 
               ? selectedItem.images 
               : (selectedItem.image_url ? [selectedItem.image_url] : []);
+            const videoUrl = selectedItem.video_url as string | null;
             
             return (
               <div className="space-y-4">
@@ -153,7 +159,21 @@ const Portfolio = () => {
                   )}
                 </div>
                 
-                {images.length > 1 ? (
+                {videoUrl ? (
+                  <div className="aspect-video w-full overflow-hidden rounded-lg">
+                    {/(youtube|youtu\.be|vimeo)/i.test(videoUrl) ? (
+                      <iframe
+                        src={videoUrl.replace("watch?v=", "embed/")}
+                        title={selectedItem.title}
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <video src={videoUrl} controls className="w-full h-full object-contain" />
+                    )}
+                  </div>
+                ) : images.length > 1 ? (
                   <Carousel className="w-full">
                     <CarouselContent>
                       {images.map((imageUrl: string, index: number) => (

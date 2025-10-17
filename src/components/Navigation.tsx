@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +9,7 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,11 +65,49 @@ const Navigation = () => {
                 )}
               </Link>
             ))}
-            <Link to="/booking">
-              <Button variant="default" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90">
-                Book Now
-              </Button>
-            </Link>
+            <Button
+              variant="default"
+              className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 relative overflow-visible"
+              onClick={(e) => {
+                const button = e.currentTarget as HTMLButtonElement;
+                const rect = button.getBoundingClientRect();
+                const originX = rect.left + rect.width / 2;
+                const originY = rect.top + rect.height / 2;
+                const particles: HTMLDivElement[] = [];
+                const count = 16;
+                for (let i = 0; i < count; i++) {
+                  const p = document.createElement("div");
+                  const angle = (i / count) * Math.PI * 2;
+                  const distance = 18 + Math.random() * 28;
+                  const x = Math.cos(angle) * distance;
+                  const y = Math.sin(angle) * distance;
+                  p.style.position = "fixed";
+                  p.style.left = `${originX}px`;
+                  p.style.top = `${originY}px`;
+                  p.style.width = "5px";
+                  p.style.height = "5px";
+                  p.style.borderRadius = "50%";
+                  p.style.pointerEvents = "none";
+                  p.style.zIndex = "9999";
+                  p.style.background = "conic-gradient(from 0deg, var(--primary), var(--secondary))";
+                  document.body.appendChild(p);
+                  particles.push(p);
+                  const keyframes: Keyframe[] = [
+                    { transform: "translate(0, 0) scale(1)", opacity: 1 },
+                    { transform: `translate(${x}px, ${y}px) scale(0)`, opacity: 0 },
+                  ];
+                  const duration = 450 + Math.random() * 250;
+                  p.animate(keyframes, {
+                    duration,
+                    easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+                    fill: "forwards",
+                  }).onfinish = () => p.remove();
+                }
+                setTimeout(() => navigate("/booking"), 520);
+              }}
+            >
+              Book Now
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -103,11 +142,49 @@ const Navigation = () => {
                   {item.label}
                 </Link>
               ))}
-              <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90">
-                  Book Now
-                </Button>
-              </Link>
+              <Button
+                className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 relative overflow-visible"
+                onClick={(e) => {
+                  setIsMobileMenuOpen(false);
+                  const button = e.currentTarget as HTMLButtonElement;
+                  const rect = button.getBoundingClientRect();
+                  const originX = rect.left + rect.width / 2;
+                  const originY = rect.top + rect.height / 2;
+                  const particles: HTMLDivElement[] = [];
+                  const count = 16;
+                  for (let i = 0; i < count; i++) {
+                    const p = document.createElement("div");
+                    const angle = (i / count) * Math.PI * 2;
+                    const distance = 16 + Math.random() * 26;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+                    p.style.position = "fixed";
+                    p.style.left = `${originX}px`;
+                    p.style.top = `${originY}px`;
+                    p.style.width = "5px";
+                    p.style.height = "5px";
+                    p.style.borderRadius = "50%";
+                    p.style.pointerEvents = "none";
+                    p.style.zIndex = "9999";
+                    p.style.background = "conic-gradient(from 0deg, var(--primary), var(--secondary))";
+                    document.body.appendChild(p);
+                    particles.push(p);
+                    const keyframes: Keyframe[] = [
+                      { transform: "translate(0, 0) scale(1)", opacity: 1 },
+                      { transform: `translate(${x}px, ${y}px) scale(0)`, opacity: 0 },
+                    ];
+                    const duration = 420 + Math.random() * 240;
+                    p.animate(keyframes, {
+                      duration,
+                      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+                      fill: "forwards",
+                    }).onfinish = () => p.remove();
+                  }
+                  setTimeout(() => navigate("/booking"), 500);
+                }}
+              >
+                Book Now
+              </Button>
             </div>
           </motion.div>
         )}
