@@ -141,7 +141,7 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Certifications */}
+          {/* Certifications
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -164,7 +164,7 @@ const About = () => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Sample Work */}
           {portfolioSamples && portfolioSamples.length > 0 && (

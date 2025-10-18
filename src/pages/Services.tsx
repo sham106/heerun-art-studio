@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
+import sparklesFromElement from "@/lib/sparkle";
 
 const services = [
   {
@@ -128,11 +129,22 @@ const Services = () => {
                     </CardContent>
                     <CardFooter className="flex justify-between items-center">
                       <span className="text-2xl font-bold text-primary">{service.price}</span>
-                      <Link to="/booking">
-                        <Button variant="outline" className="hover:bg-primary hover:text-primary-foreground">
-                          Book Now
-                        </Button>
-                      </Link>
+                      <Button
+                        variant="outline"
+                        className="hover:bg-primary hover:text-primary-foreground"
+                        onClick={(e) => {
+                          const btn = e.currentTarget as HTMLElement;
+                          sparklesFromElement(btn, { count: 14, spreadMin: 14, spreadMax: 28 });
+                          // navigate via anchor behavior after a short delay to allow sparkles to show
+                          setTimeout(() => {
+                            // programmatically click the surrounding link if present
+                            const link = btn.closest('a') as HTMLAnchorElement | null;
+                            if (link) link.click();
+                          }, 420);
+                        }}
+                      >
+                        Book Now
+                      </Button>
                     </CardFooter>
                   </Card>
                 </motion.div>
