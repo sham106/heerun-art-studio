@@ -21,7 +21,7 @@ Use this checklist to collect everything needed to fully customize and launch th
 3) Services & Pricing
   - [ ] Complete list of services (title + one-paragraph description each).
   - [ ] Features/bullets for each service (3–6 bullets).
-  - [ ] Starting price or price range (text like `From MRU 2,500`).
+  - [ ] Starting price or price range (text like `From Rs 2,500`).
   - [ ] Any packaged pricing tiers (if available) and deposit/cancellation policy.
 
 4) Portfolio Assets

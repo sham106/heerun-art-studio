@@ -13,7 +13,7 @@ const serviceDetails = [
       "Online gallery delivery",
       "Custom album design",
     ],
-    pricing: "Starting from MRU 2,500",
+    pricing: "Starting from Rs 2,500",
   },
   {
     id: 1,
@@ -26,7 +26,7 @@ const serviceDetails = [
       "Brand-aligned editing",
       "Fast turnaround",
     ],
-    pricing: "Starting from MRU 1,200",
+    pricing: "Starting from Rs 1,200",
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ const serviceDetails = [
       "Multiple looks",
       "High-res files",
     ],
-    pricing: "Starting from MRU 450",
+    pricing: "Starting from Rs 450",
   },
   {
     id: 3,
@@ -52,7 +52,7 @@ const serviceDetails = [
       "Stage coverage",
       "Social media ready",
     ],
-    pricing: "Starting from MRU 800",
+    pricing: "Starting from Rs 800",
   },
 ];
 

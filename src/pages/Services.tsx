@@ -14,7 +14,7 @@ const services = [
     title: "Wedding Photography",
     description: "Capture every precious moment of your special day with our comprehensive wedding photography packages.",
     features: ["Full day coverage", "Engagement shoot", "Custom album"],
-    price: "From MRU 2,500",
+    price: "From Rs 2,500",
     gradient: "from-rose-500 to-pink-600",
   },
   {
@@ -22,7 +22,7 @@ const services = [
     title: "Corporate Events",
     description: "Professional documentation of your business events, conferences, and seminars.",
     features: ["Event coverage", "Speaker photos", "Fast delivery"],
-    price: "From MRU 1,200",
+    price: "From Rs 1,200",
     gradient: "from-blue-500 to-indigo-600",
   },
   {
@@ -30,7 +30,7 @@ const services = [
     title: "Portrait Sessions",
     description: "Professional headshots and personal portraits for individuals and families.",
     features: ["Studio or outdoor", "Professional editing", "Multiple looks"],
-    price: "From MRU 450",
+    price: "From Rs 450",
     gradient: "from-purple-500 to-violet-600",
   },
   {
@@ -38,7 +38,7 @@ const services = [
     title: "Event Coverage",
     description: "Dynamic photography for concerts, festivals, and special celebrations.",
     features: ["Action shots", "Atmosphere capture", "Social media ready"],
-    price: "From MRU 800",
+    price: "From Rs 800",
     gradient: "from-amber-500 to-orange-600",
   },
   {
@@ -46,7 +46,7 @@ const services = [
     title: "Commercial Photography",
     description: "Product photography and commercial shoots for businesses and brands.",
     features: ["Product shots", "Lifestyle images", "Brand aligned"],
-    price: "From MRU 950",
+    price: "From Rs 950",
     gradient: "from-green-500 to-emerald-600",
   },
   {

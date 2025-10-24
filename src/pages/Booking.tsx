@@ -79,7 +79,7 @@ ${values.budget ? `Budget: ${values.budget}` : ""}
       `.trim();
 
       // Replace with your actual WhatsApp number (format: country code + number, no + or spaces)
-      const whatsappNumber = "1234567890";
+      const whatsappNumber = "25448804536";
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
@@ -264,11 +264,11 @@ ${values.budget ? `Budget: ${values.budget}` : ""}
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="Under MRU 500">Under MRU 500</SelectItem>
-                          <SelectItem value="MRU 500 - MRU 1,000">MRU 500 - MRU 1,000</SelectItem>
-                          <SelectItem value="MRU 1,000 - MRU 2,500">MRU 1,000 - MRU 2,500</SelectItem>
-                          <SelectItem value="MRU 2,500 - MRU 5,000">MRU 2,500 - MRU 5,000</SelectItem>
-                          <SelectItem value="Over MRU 5,000">Over MRU 5,000</SelectItem>
+                          <SelectItem value="Under Rs 500">Under Rs 500</SelectItem>
+                          <SelectItem value="Rs 500 - Rs 1,000">Rs 500 - Rs 1,000</SelectItem>
+                          <SelectItem value="Rs 1,000 - Rs 2,500">Rs 1,000 - Rs 2,500</SelectItem>
+                          <SelectItem value="Rs 2,500 - Rs 5,000">Rs 2,500 - Rs 5,000</SelectItem>
+                          <SelectItem value="Over Rs 5,000">Over Rs 5,000</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
