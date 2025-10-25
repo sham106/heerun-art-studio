@@ -79,7 +79,7 @@ ${values.budget ? `Budget: ${values.budget}` : ""}
       `.trim();
 
       // Replace with your actual WhatsApp number (format: country code + number, no + or spaces)
-      const whatsappNumber = "25448804536";
+      const whatsappNumber = "254748804536";
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
