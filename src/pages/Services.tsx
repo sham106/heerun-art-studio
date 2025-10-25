@@ -129,22 +129,14 @@ const Services = () => {
                     </CardContent>
                     <CardFooter className="flex justify-between items-center">
                       <span className="text-2xl font-bold text-primary">{service.price}</span>
-                      <Button
-                        variant="outline"
-                        className="hover:bg-primary hover:text-primary-foreground"
-                        onClick={(e) => {
-                          const btn = e.currentTarget as HTMLElement;
-                          sparklesFromElement(btn, { count: 14, spreadMin: 14, spreadMax: 28 });
-                          // navigate via anchor behavior after a short delay to allow sparkles to show
-                          setTimeout(() => {
-                            // programmatically click the surrounding link if present
-                            const link = btn.closest('a') as HTMLAnchorElement | null;
-                            if (link) link.click();
-                          }, 420);
-                        }}
-                      >
-                        Book Now
-                      </Button>
+                      <Link to={`/booking?service=${encodeURIComponent(service.title)}`}>
+                        <Button
+                          variant="outline"
+                          className="hover:bg-primary hover:text-primary-foreground"
+                        >
+                          Book Now
+                        </Button>
+                      </Link>
                     </CardFooter>
                   </Card>
                 </motion.div>

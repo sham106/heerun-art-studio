@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Clock, DollarSign } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -29,6 +29,8 @@ type FormValues = z.infer<typeof formSchema>;
 
 const Booking = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const locationUrl = useLocation();
+  const searchParams = new URLSearchParams(locationUrl.search);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -36,7 +38,7 @@ const Booking = () => {
       client_name: "",
       email: "",
       phone: "",
-      service_type: "",
+      service_type: searchParams.get("service") || "",
       event_date: "",
       location: "",
       duration: "",
@@ -44,6 +46,13 @@ const Booking = () => {
       budget: "",
     },
   });
+
+  useEffect(() => {
+    const serviceFromUrl = searchParams.get("service");
+    if (serviceFromUrl) {
+      form.setValue("service_type", serviceFromUrl);
+    }
+  }, [locationUrl, form, searchParams]);
 
   const onSubmit = async (values: FormValues) => {
     setIsSubmitting(true);
