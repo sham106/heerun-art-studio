@@ -132,7 +132,7 @@ const Contact = () => {
                   Get instant response on WhatsApp
                 </p>
                 <a
-                  href="https://wa.me/1234567890"
+                  href="https://wa.me/254748804536"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
