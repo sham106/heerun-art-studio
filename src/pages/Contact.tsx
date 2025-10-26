@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { toast } from "sonner";
+import { CONTACT_DETAILS } from "@/lib/constants";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -17,8 +18,6 @@ const formSchema = z.object({
 });
 
 type FormValues = z.infer<typeof formSchema>;
-
-const WHATSAPP_NUMBER = "254748804536";
 
 const Contact = () => {
   const form = useForm<FormValues>({
@@ -33,7 +32,7 @@ const Contact = () => {
   const onSubmit = (values: FormValues) => {
     const message = `Name: ${values.name}\nEmail: ${values.email}\n\nMessage:\n${values.message}`;
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/${CONTACT_DETAILS.WHATSAPP_NUMBER}?text=${encodedMessage}`;
     
     window.open(whatsappUrl, "_blank");
     toast.success("Redirecting to WhatsApp...");
@@ -76,7 +75,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Phone</h3>
-                    <p className="text-muted-foreground">+23056748900</p>
+                    <p className="text-muted-foreground">{CONTACT_DETAILS.PHONE_DISPLAY}</p>
                   </div>
                 </div>
 
@@ -86,7 +85,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-muted-foreground">hello@heerunartstudio.com</p>
+                    <p className="text-muted-foreground">{CONTACT_DETAILS.EMAIL}</p>
                   </div>
                 </div>
 
@@ -96,7 +95,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Location</h3>
-                    <p className="text-muted-foreground">123 Photo Street, Studio City, CA 12345</p>
+                    <p className="text-muted-foreground">{CONTACT_DETAILS.LOCATION}</p>
                   </div>
                 </div>
               </div>
@@ -105,11 +104,7 @@ const Contact = () => {
               <div>
                 <h3 className="font-semibold mb-4">Follow Us</h3>
                 <div className="flex gap-4">
-                  {[
-                    { icon: Facebook, href: "#" },
-                    { icon: Instagram, href: "#" },
-                    { icon: Twitter, href: "#" },
-                  ].map((social, idx) => {
+                  {[{ icon: Facebook, href: "#" }, { icon: Instagram, href: "#" }, { icon: Twitter, href: "#" }].map((social, idx) => {
                     const Icon = social.icon;
                     return (
                       <a
@@ -133,7 +128,7 @@ const Contact = () => {
                   Get instant response on WhatsApp
                 </p>
                 <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  href={`https://wa.me/${CONTACT_DETAILS.WHATSAPP_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
