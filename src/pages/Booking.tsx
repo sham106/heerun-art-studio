@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { CONTACT_DETAILS } from "@/lib/constants";
+import { CONTACT_DETAILS, SERVICES_LIST } from "@/lib/constants";
 
 const formSchema = z.object({
   client_name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -193,12 +193,11 @@ ${values.budget ? `Budget: ${values.budget}` : ""}
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="Wedding Photography">Wedding Photography</SelectItem>
-                            <SelectItem value="Corporate Event">Corporate Event</SelectItem>
-                            <SelectItem value="Portrait Session">Portrait Session</SelectItem>
-                            <SelectItem value="Event Coverage">Event Coverage</SelectItem>
-                            <SelectItem value="Commercial">Commercial Photography</SelectItem>
-                            <SelectItem value="Custom">Custom Package</SelectItem>
+                            {SERVICES_LIST.map(service => (
+                              <SelectItem key={service.title} value={service.title}>
+                                {service.title}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                         <FormMessage />

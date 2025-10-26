@@ -6,58 +6,16 @@ import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
-import sparklesFromElement from "@/lib/sparkle";
+import { SERVICES_LIST } from "@/lib/constants";
 
-const services = [
-  {
-    icon: Heart,
-    title: "Wedding Photography",
-    description: "Capture every precious moment of your special day with our comprehensive wedding photography packages.",
-    features: ["Full day coverage", "Engagement shoot", "Custom album"],
-    price: "From Rs 2,500",
-    gradient: "from-rose-500 to-pink-600",
-  },
-  {
-    icon: Briefcase,
-    title: "Corporate Events",
-    description: "Professional documentation of your business events, conferences, and seminars.",
-    features: ["Event coverage", "Speaker photos", "Fast delivery"],
-    price: "From Rs 1,200",
-    gradient: "from-blue-500 to-indigo-600",
-  },
-  {
-    icon: Users,
-    title: "Portrait Sessions",
-    description: "Professional headshots and personal portraits for individuals and families.",
-    features: ["Studio or outdoor", "Professional editing", "Multiple looks"],
-    price: "From Rs 450",
-    gradient: "from-purple-500 to-violet-600",
-  },
-  {
-    icon: Video,
-    title: "Event Coverage",
-    description: "Dynamic photography for concerts, festivals, and special celebrations.",
-    features: ["Action shots", "Atmosphere capture", "Social media ready"],
-    price: "From Rs 800",
-    gradient: "from-amber-500 to-orange-600",
-  },
-  {
-    icon: Camera,
-    title: "Commercial Photography",
-    description: "Product photography and commercial shoots for businesses and brands.",
-    features: ["Product shots", "Lifestyle images", "Brand aligned"],
-    price: "From Rs 950",
-    gradient: "from-green-500 to-emerald-600",
-  },
-  {
-    icon: Sparkles,
-    title: "Custom Packages",
-    description: "Tailored photography services to meet your specific needs and requirements.",
-    features: ["Flexible options", "Custom pricing", "Personalized service"],
-    price: "Contact Us",
-    gradient: "from-cyan-500 to-blue-600",
-  },
-];
+const serviceVisuals = {
+  "Wedding Photography": { icon: Heart, gradient: "from-rose-500 to-pink-600" },
+  "Corporate Events": { icon: Briefcase, gradient: "from-blue-500 to-indigo-600" },
+  "Portrait Sessions": { icon: Users, gradient: "from-purple-500 to-violet-600" },
+  "Event Coverage": { icon: Video, gradient: "from-amber-500 to-orange-600" },
+  "Commercial Photography": { icon: Camera, gradient: "from-green-500 to-emerald-600" },
+  "Custom Packages": { icon: Sparkles, gradient: "from-cyan-500 to-blue-600" },
+};
 
 const Services = () => {
   // Fetch portfolio items for each service category
@@ -97,8 +55,9 @@ const Services = () => {
 
           {/* Services Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {services.map((service, idx) => {
-              const Icon = service.icon;
+            {SERVICES_LIST.map((service, idx) => {
+              const visual = serviceVisuals[service.title as keyof typeof serviceVisuals] || serviceVisuals["Custom Packages"];
+              const Icon = visual.icon;
               return (
                 <motion.div
                   key={idx}
@@ -111,7 +70,7 @@ const Services = () => {
                 >
                   <Card className="h-full border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow">
                     <CardHeader>
-                      <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-4`}>
+                      <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${visual.gradient} flex items-center justify-center mb-4`}>
                         <Icon className="w-6 h-6 text-white" />
                       </div>
                       <CardTitle className="text-2xl">{service.title}</CardTitle>
