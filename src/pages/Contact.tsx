@@ -18,6 +18,8 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+const WHATSAPP_NUMBER = "254748804536";
+
 const Contact = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -29,10 +31,9 @@ const Contact = () => {
   });
 
   const onSubmit = (values: FormValues) => {
-    const whatsappNumber = "1234567890";
     const message = `Name: ${values.name}\nEmail: ${values.email}\n\nMessage:\n${values.message}`;
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
     
     window.open(whatsappUrl, "_blank");
     toast.success("Redirecting to WhatsApp...");
@@ -132,7 +133,7 @@ const Contact = () => {
                   Get instant response on WhatsApp
                 </p>
                 <a
-                  href="https://wa.me/254748804536"
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
