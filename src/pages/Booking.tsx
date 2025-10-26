@@ -12,11 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-// Local fallback for contact details to avoid missing module error.
-// Replace the number below with your WhatsApp number in international format without '+' (e.g. 911234567890).
-const CONTACT_DETAILS = {
-  WHATSAPP_NUMBER: "254748804536",
-};
+import { CONTACT_DETAILS } from "@/lib/constants";
 
 const formSchema = z.object({
   client_name: z.string().min(2, "Name must be at least 2 characters").max(100),
